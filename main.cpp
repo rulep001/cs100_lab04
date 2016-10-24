@@ -16,12 +16,15 @@ int main() {
 	Sub *C = new Sub ( B ,  op2 );
 	Sqr *D = new Sqr ( C );
 	
-	Base* X = (new CeilDecorator(D));
-	cout << "test Ceil: \n" << X->evaluate() << endl;
+	Base* X = new CeilDecorator(D);
+	cout << "Test Ceil: \n" << X->evaluate() << endl;
 	
-	Base* Y = (new FloorDecorator(D));
-	cout << "test Floor: \n" << Y->evaluate() << endl;
+	Base* Y = new FloorDecorator(B);
+	cout << "Test Floor: \n" << Y->evaluate() << endl;
 	
-	Base* Z = (new AbsDecorator(A));
-	cout << "test Abs: \n" << Z->evaluate() << endl;
+	Base* Z = new AbsDecorator(A);
+	cout << "Test Abs: \n" << Z->evaluate() << endl;
+
+	Base* Q = new AbsDecorator(Y);
+	cout << "Test Abs on Negative: " << Q->evaluate() << endl;
 };
