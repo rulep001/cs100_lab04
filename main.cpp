@@ -2,30 +2,26 @@
 #include "container.h"
 #include "vectorcontainer.h"
 #include "listcontainer.h"
+#include "decorator.h"
 
 using namespace std;
 
 int main() {
-	Op *op7 = new Op ( 7 );
-	Op *op4 = new Op ( 4 );
-	Op *op3 = new Op ( 3 );
-	Op *op2 = new Op ( 2 );
-	Mult *A = new Mult ( op7 ,  op4 );
+	Op *op1 = new Op (-5.3 );
+	Op *op2 = new Op (2.1);
+	Op *op3 = new Op (-4.2);
+	Op *op4 = new Op (6.5);
+	Mult *A = new Mult ( op1 ,  op4 );
 	Add *B = new Add ( op3 ,  A );
 	Sub *C = new Sub ( B ,  op2 );
 	Sqr *D = new Sqr ( C );
 	
-	ListContainer * container = new ListContainer();
-	container->add_element(A);
-	container->add_element(B);
-	container->add_element(C);
-	container->add_element(D);
+	Base* X = (new CeilDecorator(D));
+	cout << "test Ceil: \n" << X->evaluate() << endl;
 	
-	cout << "Container Before Sort: " << endl;
-	container->print();
-
-	cout << "Container After Sort: " << endl;
-	container->set_sort_function(new BubbleSort());
-	container->sort();
-	container->print();
+	Base* Y = (new FloorDecorator(D));
+	cout << "test Floor: \n" << Y->evaluate() << endl;
+	
+	Base* Z = (new AbsDecorator(A));
+	cout << "test Abs: \n" << Z->evaluate() << endl;
 };
